@@ -1,609 +1,806 @@
 <template>
-  <div id="app">
-    <header class="navbar">
-      <div class="logo">
-        <img src="./assets/logo_cero.png" alt="Logo CERO" class="logo-img">
-        <div class="logo-text">
-          <h1>PROYECTO C.E.R.O.</h1>
-          <span>Convivencia y Respeto Escolar</span>
+  <div id="app" class="font-sans antialiased text-gray-900 min-h-screen bg-gray-50">
+    
+    <div v-if="ventana === 'inicio'" class="min-h-screen bg-white">
+      <nav class="flex justify-between items-center p-6 max-w-7xl mx-auto">
+        <div class="flex items-center gap-2">
+          <div class="bg-blue-600 text-white p-2 rounded-lg font-black">C</div>
+          <span class="text-2xl font-black text-blue-900 tracking-tighter">PROYECTO C.E.R.O.</span>
         </div>
-      </div>
-
-      <nav class="main-nav">
-        <div class="nav-links">
-          <button @click="ventana = 'inicio'" :class="{ active: ventana === 'inicio' }">Inicio</button>
-          <button @click="ventana = 'sistema'" :class="{ active: ventana === 'sistema' }">Sistema de Reportes</button>
-          <button @click="ventana = 'contacto'" :class="{ active: ventana === 'contacto' }">Contacto</button>
-        </div>
-
-        <div class="nav-auth">
-          <button v-if="!usuarioActivo" @click="ventana = 'login'" class="btn-login-top">
-            🔑 Iniciar Sesión
-          </button>
-          
-          <div v-else class="user-logged-info">
-            <span>👤 {{ usuarioActivo.nombre }}</span>
-            <button @click="cerrarSesion" class="btn-logout-small">Salir</button>
-          </div>
+        <div class="flex gap-4">
+          <button @click="ventana = 'login'" class="px-6 py-2 font-bold text-blue-600 hover:text-blue-800 transition">Entrar</button>
+          <button @click="ventana = 'registroColegio'" class="bg-blue-600 text-white px-6 py-2 rounded-xl font-bold hover:bg-blue-700 shadow-md transition">Registrar Colegio</button>
         </div>
       </nav>
-    </header>
 
-    <main class="content">
+      <header class="py-16 px-6 text-center max-w-4xl mx-auto animate-fade-in">
+        <h1 class="text-5xl md:text-7xl font-black text-blue-900 mb-6 tracking-tighter uppercase">Convivencia y Respeto Escolar</h1>
+        <p class="text-xl text-gray-600 mb-10 leading-relaxed font-medium">
+          Una herramienta diseñada para la gestión moderna del clima institucional, alineada con los estándares de protección y bienestar estudiantil.
+        </p>
+        <div class="flex justify-center gap-4">
+          <a href="#ley1620" class="bg-gray-100 text-gray-700 px-8 py-4 rounded-2xl font-black hover:bg-gray-200 transition uppercase text-sm">Saber más</a>
+        </div>
+      </header>
+
+      <section id="ley1620" class="py-20 bg-gray-50 px-6">
+        <div class="max-w-6xl mx-auto">
+          <div class="grid md:grid-cols-2 gap-16 items-center">
+            <div>
+              <span class="text-blue-600 font-black uppercase tracking-widest text-sm">Marco Legal Colombiano</span>
+              <h2 class="text-4xl font-black text-blue-900 mt-4 mb-6">Ley 1620 de 2013</h2>
+              <p class="text-gray-600 mb-6 leading-relaxed">
+                Esta ley crea el <b>Sistema Nacional de Convivencia Escolar</b>, cuyo objetivo es promover, orientar y fortalecer la convivencia, la educación para el ejercicio de los derechos humanos, sexuales y reproductivos, y la mitigación de la violencia escolar.
+              </p>
+              <ul class="space-y-4">
+                <li class="flex gap-3 items-start font-bold text-gray-700">
+                  <span class="text-green-500">✓</span> Prevención del acoso escolar (Bullying).
+                </li>
+                <li class="flex gap-3 items-start font-bold text-gray-700">
+                  <span class="text-green-500">✓</span> Ruta de Atención Integral.
+                </li>
+                <li class="flex gap-3 items-start font-bold text-gray-700">
+                  <span class="text-green-500">✓</span> Promoción de entornos seguros.
+                </li>
+              </ul>
+            </div>
+            <div class="grid grid-cols-1 gap-4">
+              <div class="bg-white p-6 rounded-3xl shadow-sm border border-blue-100">
+                <h4 class="font-black text-blue-900 mb-2 uppercase">¿Qué es el Bullying?</h4>
+                <p class="text-sm text-gray-500 font-medium">Es una forma de conducta agresiva, intencionada y repetida, que ocurre sin motivación evidente, adoptada por uno o más estudiantes contra otro u otros.</p>
+              </div>
+              <div class="bg-white p-6 rounded-3xl shadow-sm border border-blue-100">
+                <h4 class="font-black text-blue-900 mb-2 uppercase">¿Qué es el Ciberbullying?</h4>
+                <p class="text-sm text-gray-500 font-medium">Acoso que ocurre a través de medios digitales como redes sociales, mensajes o plataformas de juegos, buscando atemorizar o humillar.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-20 px-6 max-w-6xl mx-auto">
+        <h3 class="text-3xl font-black text-center text-blue-900 mb-12 uppercase">Clasificación de Situaciones</h3>
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="bg-blue-50 p-8 rounded-[2.5rem] border border-blue-100">
+            <div class="text-blue-600 font-black text-4xl mb-4">I</div>
+            <h4 class="font-black text-blue-900 mb-3 uppercase">Situación Tipo I</h4>
+            <p class="text-sm text-blue-800/70 font-bold italic">Conflictos esporádicos.</p>
+            <p class="text-gray-600 mt-4 text-sm">Discusiones o malentendidos que no afectan la integridad física ni mental de forma sistemática.</p>
+          </div>
+          <div class="bg-orange-50 p-8 rounded-[2.5rem] border border-orange-100">
+            <div class="text-orange-600 font-black text-4xl mb-4">II</div>
+            <h4 class="font-black text-blue-900 mb-3 uppercase">Situación Tipo II</h4>
+            <p class="text-sm text-orange-800/70 font-bold italic">Acoso o Ciberacoso.</p>
+            <p class="text-gray-600 mt-4 text-sm">Situaciones de agresión repetitivas que no revisten características de delito pero afectan el clima escolar.</p>
+          </div>
+          <div class="bg-red-50 p-8 rounded-[2.5rem] border border-red-100">
+            <div class="text-red-600 font-black text-4xl mb-4">III</div>
+            <h4 class="font-black text-blue-900 mb-3 uppercase">Situación Tipo III</h4>
+            <p class="text-sm text-red-800/70 font-bold italic">Presunto Delito.</p>
+            <p class="text-gray-600 mt-4 text-sm">Agresiones que por su gravedad pueden ser constitutivas de delitos penales o infracciones a la ley.</p>
+          </div>
+        </div>
+      </section>
       
-      <section v-if="ventana === 'login'" class="auth-container animate-fade-in">
-        <div class="login-card">
-          <h2>Iniciar Sesión</h2>
-          <div class="field">
-            <label>Correo Electrónico</label>
-            <input type="email" v-model="formAuth.correo" placeholder="ejemplo@correo.com">
-          </div>
-          <div class="field">
-            <label>Contraseña</label>
-            <input type="password" v-model="formAuth.password" placeholder="••••••••">
-          </div>
-          <button @click="iniciarSesion" class="btn-submit">Entrar</button>
-          <p class="auth-switch">
-            ¿No tienes cuenta? <span @click="ventana = 'registro'">Regístrate aquí</span>
-          </p>
+      <footer class="py-10 text-center border-t border-gray-100">
+        <p class="text-gray-400 font-bold text-sm uppercase">© 2026 Proyecto C.E.R.O. - Puerto Tejada, Cauca</p>
+      </footer>
+    </div>
+
+    <div v-else-if="cargando" class="fixed inset-0 z-[150] flex flex-col items-center justify-center bg-blue-900/90 backdrop-blur-sm animate-fade-in">
+      <div class="w-24 h-24 border-8 border-blue-200 border-t-yellow-400 rounded-full animate-spin"></div>
+      <p class="mt-6 text-white font-black text-xl uppercase tracking-widest animate-pulse">Procesando...</p>
+    </div>
+
+    <div v-else-if="ventana === 'login'" class="min-h-screen flex items-center justify-center p-4 bg-gray-100">
+      <div class="bg-white p-12 rounded-[3rem] shadow-xl w-full max-w-md border border-gray-100 text-center animate-fade-in">
+        <h2 class="text-3xl font-black text-blue-900 mb-8 uppercase">Acceso C.E.R.O.</h2>
+        <form @submit.prevent="iniciarSesion" class="space-y-6">
+          <input v-model="formAuth.correo" type="text" placeholder="Correo o NIT" class="w-full p-5 bg-gray-50 border-2 rounded-2xl font-bold outline-none focus:border-blue-600" required>
+          <input v-model="formAuth.password" type="password" placeholder="Contraseña" class="w-full p-5 bg-gray-50 border-2 rounded-2xl font-bold outline-none focus:border-blue-600" required>
+          <button type="submit" class="w-full bg-blue-600 text-white py-5 rounded-2xl font-black text-lg hover:bg-blue-700 transition-all uppercase shadow-lg">Ingresar</button>
+          <button @click="ventana = 'inicio'" type="button" class="w-full mt-4 text-gray-400 font-bold text-xs uppercase">← Volver</button>
+        </form>
+      </div>
+    </div>
+
+    <div v-else-if="ventana === 'registroColegio'" class="min-h-screen flex items-center justify-center p-4 bg-blue-50">
+      <div class="bg-white p-10 rounded-[3rem] shadow-xl w-full max-w-md border border-blue-100 text-center animate-fade-in">
+        <h2 class="text-3xl font-black text-blue-900 mb-2 uppercase">Registro Institucional</h2>
+        <p class="text-gray-500 mb-8 font-medium italic">Configura la plataforma para tu institución</p>
+        <form @submit.prevent="registrarColegio" class="space-y-4">
+          <input v-model="formColegio.nombre" type="text" placeholder="Nombre de la Institución" class="w-full p-5 bg-gray-50 border-2 rounded-2xl font-bold outline-none focus:border-blue-600" required>
+          <input v-model="formColegio.rector" type="text" placeholder="Nombre del Rector(a)" class="w-full p-5 bg-gray-50 border-2 rounded-2xl font-bold outline-none focus:border-blue-600" required>
+          <input v-model="formColegio.nit" type="text" placeholder="NIT / Identificación" class="w-full p-5 bg-gray-50 border-2 rounded-2xl font-bold outline-none focus:border-blue-600" required>
+          <input v-model="formColegio.ciudad" type="text" placeholder="Ciudad" class="w-full p-5 bg-gray-50 border-2 rounded-2xl font-bold outline-none focus:border-blue-600" required>
+          <input v-model="formColegio.password" type="password" placeholder="Contraseña de Administrador" class="w-full p-5 bg-gray-50 border-2 rounded-2xl font-bold outline-none focus:border-blue-600" required>
+          <button type="submit" class="w-full bg-blue-600 text-white py-5 rounded-2xl font-black text-lg hover:bg-blue-700 transition-all uppercase shadow-lg">Crear Cuenta</button>
+          <button @click="ventana = 'inicio'" type="button" class="w-full mt-4 text-gray-400 font-bold text-xs uppercase">← Cancelar</button>
+        </form>
+      </div>
+    </div>
+
+    <div v-else-if="ventana === 'cambiarPassword'" class="min-h-screen flex items-center justify-center p-4 bg-blue-50">
+      <div class="bg-white p-12 rounded-[3rem] shadow-xl w-full max-w-md border border-blue-100 text-center animate-fade-in">
+        <div class="bg-orange-100 text-orange-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+          </svg>
         </div>
-      </section>
-
-      <section v-if="ventana === 'registro'" class="auth-container animate-fade-in">
-        <div class="login-card">
-          <h2>Crear Cuenta</h2>
-          <div class="field">
-            <label>Nombre Completo</label>
-            <input type="text" v-model="formAuth.nombre" placeholder="Tu nombre">
-          </div>
-          <div class="field">
-            <label>Correo Electrónico</label>
-            <input type="email" v-model="formAuth.correo" placeholder="ejemplo@correo.com">
-          </div>
-          <div class="field">
-            <label>Contraseña</label>
-            <input type="password" v-model="formAuth.password" placeholder="Mínimo 6 caracteres">
-          </div>
-          <button @click="registrarUsuario" class="btn-submit">Registrarse</button>
-          <p class="auth-switch">
-            ¿Ya tienes cuenta? <span @click="ventana = 'login'">Inicia sesión</span>
-          </p>
+        <h2 class="text-2xl font-black text-blue-900 mb-2 uppercase">Seguridad Requerida</h2>
+        <p class="text-gray-500 mb-8 font-medium">Por seguridad, debes cambiar la contraseña genérica antes de continuar.</p>
+        <div class="space-y-4">
+          <input v-model="nuevaClave" type="password" placeholder="Nueva Contraseña" class="w-full p-5 bg-gray-50 border-2 rounded-2xl font-bold outline-none focus:border-blue-600">
+          <input v-model="confirmarClave" type="password" placeholder="Confirmar Contraseña" class="w-full p-5 bg-gray-50 border-2 rounded-2xl font-bold outline-none focus:border-blue-600">
+          <button @click="actualizarPasswordObligatorio" class="w-full bg-blue-600 text-white py-5 rounded-2xl font-black text-lg hover:bg-blue-700 transition-all uppercase shadow-lg">Actualizar y Entrar</button>
         </div>
-      </section>
+      </div>
+    </div>
 
-      <section v-if="ventana === 'inicio'" class="animate-fade-in info-page">
-        <div class="info-card">
-          <h2>Bienvenido al Proyecto C.E.R.O.</h2>
-          <p>
-            Nuestra misión es construir un entorno escolar seguro, basado en la 
-            <b>C</b>onvivencia, el <b>E</b>ntendimiento, el <b>R</b>espeto y la 
-            <b>O</b>peratividad.
-          </p>
-          <div class="info-grid">
-            <div class="info-item"><h3>🛡️ Misión</h3><p>Prevenir el acoso escolar mediante tecnología accesible.</p></div>
-            <div class="info-item"><h3>🔒 Privacidad</h3><p>Tus reportes son tratados con absoluta confidencialidad.</p></div>
-            <div class="info-item"><h3>🚀 Acción</h3><p>Respuesta rápida por parte del equipo directivo.</p></div>
-          </div>
+    <div v-else-if="ventana === 'sistema'" class="min-h-screen bg-gray-50 flex animate-fade-in">
+      <aside class="w-64 bg-blue-900 text-white flex flex-col shadow-2xl">
+        <div class="p-8 text-center border-b border-blue-800">
+          <h2 class="text-2xl font-black tracking-tighter uppercase">C.E.R.O.</h2>
+          <p class="text-xs text-blue-300 font-bold mt-1 truncate">{{ usuarioActivo.nombre_colegio }}</p>
         </div>
-      </section>
-
-      <section v-if="ventana === 'sistema'" class="animate-fade-in">
-        
-        <div v-if="!usuarioActivo" class="auth-needed-message">
-          <div class="info-card">
-            <p>Para garantizar la seguridad de la comunidad, debes estar identificado antes de enviar un reporte.</p>
-            <button @click="ventana = 'login'" class="btn-submit">Ir a Iniciar Sesión</button>
-          </div>
+        <nav class="flex-1 p-4 space-y-2">
+          <button @click="subTab = 'reportes'; obtenerReportes()" :class="subTab === 'reportes' ? 'bg-blue-700' : 'hover:bg-blue-800'" class="w-full flex items-center gap-3 p-4 rounded-xl font-bold transition-all">📊 Mis Reportes</button>
+          <button @click="subTab = 'nuevoReporte'" :class="subTab === 'nuevoReporte' ? 'bg-blue-700' : 'hover:bg-blue-800'" class="w-full flex items-center gap-3 p-4 rounded-xl font-bold transition-all">📝 Nuevo Reporte</button>
+          <button v-if="usuarioActivo.rol === 'admin'" @click="subTab = 'usuarios'; cargarUsuarios()" :class="subTab === 'usuarios' ? 'bg-blue-700' : 'hover:bg-blue-800'" class="w-full flex items-center gap-3 p-4 rounded-xl font-bold transition-all">👥 Usuarios</button>
+        </nav>
+        <div class="p-4 border-t border-blue-800">
+          <button @click="cerrarSesion" class="w-full p-4 bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white rounded-xl font-bold transition-all flex items-center justify-center gap-2">🚪 Salir</button>
         </div>
+      </aside>
 
-        <div v-else>
-          <div class="sub-nav">
-            <button @click="vista = 'estudiante'" :class="{ active: vista === 'estudiante' }">
-              Modo Estudiante
-            </button>
+      <main class="flex-1 p-8 overflow-y-auto">
+        <header class="flex justify-between items-center mb-10">
+          <h1 class="text-3xl font-black text-blue-900 uppercase">Panel de Gestión</h1>
+        </header>
 
-            <button 
-              v-if="usuarioActivo.rol === 'admin' || usuarioActivo.id === 3 || usuarioActivo.id === 5" 
-              @click="vista = 'docente'" 
-              :class="{ active: vista === 'docente' }">
-              Panel de Control
-            </button>
+        <section v-if="subTab === 'reportes'" class="animate-fade-in space-y-8">
+          <div class="bg-white rounded-[2.5rem] shadow-sm border border-gray-100 overflow-hidden">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left">
+                <thead class="bg-gray-50 text-gray-400 text-xs uppercase font-black">
+                  <tr>
+                    <th class="p-6">ID</th>
+                    <th class="p-6">Tipo</th>
+                    <th class="p-6">Descripción</th>
+                    <th class="p-6">Estado</th>
+                    <th v-if="usuarioActivo.rol === 'admin'" class="p-6 text-center">Gestión</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-50">
+                  <tr v-for="reporte in reportes" :key="reporte.id" class="hover:bg-blue-50/30 transition-all">
+                    <td class="p-6 font-bold">#{{ reporte.id }}</td>
+                    <td class="p-6 font-black uppercase">
+                      <span :class="{
+                        'text-red-600 bg-red-50 px-3 py-1 rounded-lg border border-red-100': reporte.tipo === 'Tipo III',
+                        'text-orange-600 bg-orange-50 px-3 py-1 rounded-lg border border-orange-100': reporte.tipo === 'Tipo II',
+                        'text-blue-600 bg-blue-50 px-3 py-1 rounded-lg border border-blue-100': reporte.tipo === 'Tipo I'
+                      }">
+                        {{ reporte.tipo }}
+                      </span>
+                    </td>
+                    <td class="p-6 text-gray-600 max-w-xs truncate">{{ reporte.descripcion }}</td>
+                    <td class="p-6">
+                      <span :class="{'bg-orange-100 text-orange-600': reporte.estado === 'nuevo', 'bg-green-100 text-green-600': reporte.estado === 'resuelto'}" class="px-3 py-1 rounded-full text-[10px] font-black uppercase italic">{{ reporte.estado }}</span>
+                    </td>
+                    <td v-if="usuarioActivo.rol === 'admin'" class="p-6 text-center">
+                      <button @click="abrirSeguimiento(reporte)" class="bg-indigo-600 text-white px-5 py-2 rounded-xl font-bold text-xs hover:bg-indigo-700 shadow-sm transition-all">⚙️ Gestionar Caso</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
+        </section>
 
-          <div v-if="vista === 'estudiante'" class="report-container">
-            <div class="report-card">
-              <h2>Haz tu reporte seguro</h2>
-              <div class="input-grid">
-                <div class="field">
-                  <label>¿Qué tipo de situación es?</label>
-                  <select v-model="form.tipo">
-                    <option value="fisico">👊 Físico</option>
-                    <option value="verbal">🗣️ Verbal</option>
-                    <option value="psicologico">🧠 Psicológico</option>
-                    <option value="ciberbullying">💻 Ciberbullying</option>
-                  </select>
+        <section v-if="subTab === 'usuarios'" class="animate-fade-in space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border border-gray-100">
+              <h3 class="font-black text-blue-900 uppercase mb-4">Carga Masiva (Excel)</h3>
+              <input type="file" @change="procesarExcel" class="hidden" id="excelInput" accept=".xlsx, .xls">
+              <label for="excelInput" class="w-full bg-yellow-400 text-blue-900 py-4 rounded-2xl font-black text-center block cursor-pointer hover:bg-yellow-500 transition-all uppercase shadow-md">📁 Seleccionar Archivo</label>
+            </div>
+            <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border border-gray-100">
+              <h3 class="font-black text-blue-900 uppercase mb-4">Estado de la Base</h3>
+              <div class="flex items-center gap-4">
+                <div class="bg-blue-100 p-4 rounded-2xl">
+                  <span class="text-2xl font-black text-blue-600">{{ listaUsuarios.length }}</span>
                 </div>
-                <div class="field">
-                  <label>¿Dónde ocurrió?</label>
-                  <input v-model="form.ubicacion" placeholder="Ej: Patio, Salón 3A...">
-                </div>
+                <p class="font-bold text-gray-600">Usuarios registrados</p>
               </div>
-              <div class="field">
-                <label>Cuéntanos los detalles</label>
-                <textarea v-model="form.descripcion" rows="4" placeholder="Describe lo ocurrido..."></textarea>
-              </div>
-              <button @click="enviarReporte" class="btn-submit">🚀 Enviar Reporte Seguro</button>
             </div>
           </div>
 
-          <div v-if="vista === 'docente'">
-            
-            <div v-if="usuarioActivo.rol === 'admin' || usuarioActivo.id === 3 || usuarioActivo.id === 5">
-              
-              <div v-if="!estaLogueado" class="login-container">
-                <div class="login-card">
-                  <span class="lock-icon">🔒</span>
-                  <h2>Acceso Directivo</h2>
-                  <input type="password" v-model="passwordIngresada" placeholder="Contraseña Admin" @keyup.enter="verificarAcceso" />
-                  <button @click="verificarAcceso" class="btn-submit">Entrar al Panel</button>
-                </div>
-              </div>
-
-              <div v-else class="admin-content">
-                <div class="admin-header">
-                  <button @click="descargarExcel" class="btn-excel">📊 Exportar Excel</button>
-                  <button @click="estaLogueado = false" class="btn-logout">Cerrar Sesión Admin</button>
-                </div>
-
-                <div class="stats-cards-row">
-                  <div class="stat-card pending"><h3>{{ sinAtender }}</h3><p>Sin Atender</p></div>
-                  <div class="stat-card processing"><h3>{{ enRevision }}</h3><p>En Revisión</p></div>
-                  <div class="stat-card resolved"><h3>{{ resueltos }}</h3><p>Resueltos</p></div>
-                </div>
-
-                <div class="admin-section-toggle" style="margin: 20px 0; display: flex; gap: 10px;">
-                  <button @click="subTab = 'reportes'" :class="{active: subTab === 'reportes'}" class="btn-tab">
-                    📋 Reportes Recibidos
-                  </button>
-                  <button @click="subTab = 'usuarios'; cargarUsuarios()" :class="{active: subTab === 'usuarios'}" class="btn-tab">
-                    👥 Gestionar Usuarios
-                  </button>
-                </div>
-
-                <div v-if="subTab === 'reportes'" class="table-container animate-fade-in">
-                  <table class="modern-table">
-                    <thead>
-                      <tr>
-                        <th>ID</th> <th>Tipo</th> <th>Ubicación</th>
-                        <th>Descripción</th> <th>Reportado por</th> 
-                        <th>Estado</th> <th>Acciones</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-for="r in reportes" :key="r.id" :class="{ 'high-priority': r.tipo === 'fisico' }">
-                        <td>#{{ r.id }}</td>
-                        <td><span class="tag">{{ r.tipo }}</span></td>
-                        <td>{{ r.ubicacion }}</td>
-                        <td>{{ r.descripcion }}</td>
-                        <td style="font-weight: bold; color: #2196F3;">{{ r.autor || 'Anónimo' }}</td>
-                        <td><span :class="'status-pill ' + r.estado">{{ r.estado }}</span></td>
-                        <td>
-                          <button class="btn-action" @click="cambiarEstado(r.id, r.estado)" :disabled="r.estado === 'resuelto'">
-                            Actualizar
-                          </button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-
-                <div v-if="subTab === 'usuarios'" class="table-container animate-fade-in">
-                  <h3 style="margin-bottom: 15px;">Control de Accesos y Roles</h3>
-                  <table class="modern-table">
-                    <thead>
-                      <tr>
-                        <th>ID</th> <th>Nombre</th> <th>Correo</th> <th>Rol</th> <th>Acción</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-for="u in listaUsuarios" :key="u.id">
-                        <td>#{{ u.id }}</td>
-                        <td>{{ u.nombre }}</td>
-                        <td>{{ u.correo }}</td>
-                        <td><span :class="'status-pill ' + u.rol">{{ u.rol }}</span></td>
-                        <td>
-                          <button 
-                            v-if="u.rol !== 'admin'" 
-                            @click="hacerAdmin(u.id)" 
-                            class="btn-action-admin">
-                            ⬆️ Ascender a Admin
-                          </button>
-                          <span v-else style="color: #4CAF50; font-weight: bold;">✅ Acceso Total</span>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-
-              </div>
+          <div class="bg-white rounded-[2.5rem] shadow-sm border border-gray-100 overflow-hidden">
+            <div class="p-8 border-b border-gray-50 flex justify-between items-center">
+              <h3 class="font-black text-blue-900 uppercase">Lista de Personal</h3>
+              <input v-model="filtroNombre" type="text" placeholder="Buscar usuario..." class="px-4 py-2 bg-gray-50 border rounded-xl font-bold text-sm outline-none focus:border-blue-500">
             </div>
-
-            <div v-else class="info-card animate-fade-in" style="text-align: center; padding: 50px;">
-              <div style="font-size: 60px;">🚫</div>
-              <h2>Acceso Denegado</h2>
-              <p>Esta sección es exclusiva para el personal directivo autorizado.</p>
-              <button @click="vista = 'estudiante'" class="btn-submit" style="max-width: 250px; margin: 20px auto;">
-                Regresar a Mis Reportes
-              </button>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left">
+                <thead class="bg-gray-50 text-gray-400 text-xs uppercase font-black">
+                  <tr>
+                    <th class="p-6">Nombre</th>
+                    <th class="p-6">Correo / ID</th>
+                    <th class="p-6">Rol</th>
+                    <th class="p-6 text-center">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-50">
+                  <tr v-for="user in usuariosFiltrados" :key="user.id" class="hover:bg-gray-50 transition-all">
+                    <td class="p-6 font-bold text-gray-700">{{ user.nombre }}</td>
+                    <td class="p-6 text-gray-500">{{ user.correo }}</td>
+                    <td class="p-6">
+                      <span class="px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-[10px] font-black uppercase">
+                        {{ user.rol }}
+                      </span>
+                    </td>
+                    <td class="p-6 text-center">
+                      <div class="flex justify-center gap-2">
+                        <button v-if="user.rol !== 'admin'" @click="eliminarUsuario(user.id, user.nombre)" class="p-2 bg-red-50 text-red-500 hover:bg-red-500 hover:text-white rounded-lg transition-all shadow-sm" title="Eliminar Usuario">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                          </svg>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section v-if="ventana === 'contacto'" class="animate-fade-in contact-page">
-        <div class="info-card">
-          <h2>Líneas de Atención</h2>
-          <div class="contact-grid">
-            <div class="contact-item"><strong>📞 Orientación Escolar</strong><p>300 000 0000</p></div>
-            <div class="contact-item"><strong>📧 Correo de Soporte</strong><p>contacto@proyectocero.com</p></div>
-            <div class="contact-item"><strong>📍 Oficina de Convivencia</strong><p>Bloque A - Segundo Piso</p></div>
+        <section v-if="subTab === 'nuevoReporte'" class="max-w-2xl animate-slide-up">
+          <div class="bg-white p-10 rounded-[3rem] shadow-sm border border-gray-100">
+            <h2 class="text-2xl font-black text-blue-900 mb-6 uppercase">Nuevo Reporte</h2>
+            <div class="space-y-4">
+              <div class="space-y-2">
+                <label class="text-[10px] font-black text-gray-400 uppercase ml-2">Clasificación de la Situación (Ley 1620)</label>
+                <select v-model="form.tipo" class="w-full p-4 bg-gray-50 border-2 rounded-2xl font-bold outline-none focus:border-blue-500">
+                  <option value="Tipo I">Situación Tipo I (Conflictos esporádicos)</option>
+                  <option value="Tipo II">Situación Tipo II (Acoso / Bullying sistemático)</option>
+                  <option value="Tipo III">Situación Tipo III (Presunto Delito / Agresión Grave)</option>
+                </select>
+              </div>
+              <input v-model="form.ubicacion" type="text" placeholder="¿Dónde ocurrió? (Ej: Salón, Patio, Baños)" class="w-full p-4 bg-gray-50 border-2 rounded-2xl font-bold outline-none focus:border-blue-500">
+              <textarea v-model="form.descripcion" rows="5" placeholder="Descripción detallada de los hechos..." class="w-full p-4 bg-gray-50 border-2 rounded-2xl font-bold outline-none focus:border-blue-500"></textarea>
+              <button @click="enviarReporte" class="w-full bg-blue-600 text-white py-5 rounded-2xl font-black text-xl hover:bg-blue-700 shadow-lg transition-all">Enviar Reporte</button>
+            </div>
           </div>
-          <div class="emergency-alert">🚨 Si estás en riesgo inminente, acude a la autoridad escolar.</div>
-        </div>
-      </section>
+        </section>
+      </main>
+    </div>
 
-    </main>
+    <div v-if="mostrarModalSeguimiento" class="fixed inset-0 z-[110] flex items-center justify-center bg-blue-900/80 backdrop-blur-sm p-4">
+      <div class="bg-white w-full max-w-2xl rounded-[2.5rem] p-10 shadow-2xl animate-slide-up max-h-[90vh] overflow-y-auto">
+        <h3 class="text-2xl font-black text-blue-900 mb-2 uppercase">Gestión de Intervención</h3>
+        <div class="space-y-6 mt-4">
+          <div>
+            <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Historial de Seguimiento</label>
+            <div class="bg-gray-50 p-5 rounded-2xl mt-2 text-sm border whitespace-pre-wrap text-gray-600">{{ reporteSeleccionado.seguimiento || 'Sin registros previos.' }}</div>
+          </div>
+          <div>
+            <label class="text-[10px] font-black text-blue-600 uppercase tracking-widest">Nuevas Acciones y Compromisos</label>
+            <textarea v-model="nuevaIntervencion" rows="5" class="w-full p-5 bg-blue-50/50 border-2 border-blue-100 rounded-2xl font-bold outline-none focus:border-blue-500 mt-2" placeholder="Describa los compromisos alcanzados con estudiantes y padres de familia..."></textarea>
+          </div>
+        </div>
+        <div class="flex gap-4 mt-10">
+          <button @click="mostrarModalSeguimiento = false" class="flex-1 py-4 font-black text-gray-400 uppercase">Cancelar</button>
+          <button @click="guardarYGenerarActa" class="flex-[2] bg-blue-600 text-white px-8 py-4 rounded-2xl font-black uppercase shadow-lg hover:bg-blue-700 transition-all">Guardar y Descargar Acta</button>
+        </div>
+      </div>
+    </div>
+
   </div>
+
+<div style="display: none;">
+  <div id="molde-acta-pdf" class="p-10 bg-white text-black" style="width: 800px; font-family: sans-serif;">
+    <div class="text-center border-b-2 border-blue-600 pb-4 mb-6">
+      <h1 class="text-2xl font-bold uppercase">Acta de Seguimiento de Convivencia</h1>
+      <p class="text-sm font-bold">{{ usuarioActivo?.nombre_colegio }}</p>
+      <p class="text-xs italic">Proyecto C.E.R.O. - Puerto Tejada</p>
+    </div>
+
+    <div class="space-y-4" v-if="reporteSeleccionado">
+      <p><strong>ID del Caso:</strong> #{{ reporteSeleccionado.id }}</p>
+      <p><strong>Tipo de Situación:</strong> {{ reporteSeleccionado.tipo }}</p>
+      <p><strong>Ubicación:</strong> {{ reporteSeleccionado.ubicacion }}</p>
+      <hr>
+      <p><strong>Descripción de los Hechos:</strong></p>
+      <div class="p-4 bg-gray-50 border rounded italic">{{ reporteSeleccionado.descripcion }}</div>
+      
+      <p><strong>Acciones y Seguimiento Realizado:</strong></p>
+      <div class="p-4 border rounded whitespace-pre-wrap">{{ reporteSeleccionado.seguimiento }}</div>
+      
+      <div class="mt-20 flex justify-between">
+        <div class="border-t border-black w-48 text-center pt-2 text-xs">Firma del Rector/Coordinador</div>
+        <div class="border-t border-black w-48 text-center pt-2 text-xs">Firma Padre de Familia / Estudiante</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 </template>
+
 <script>
 import api from './services/api';
 import * as XLSX from 'xlsx';
+import html2pdf from 'html2pdf.js';
 
 
 export default {
   data() {
-
-
-
     return {
-      ventana: 'inicio',
-      vista: 'estudiante',
-      estaLogueado: false,
-      passwordIngresada: '',
-      passwordCorrecta: '1234',
+      nuevaClave: '',
+    confirmarClave: '',
+      nuevaIntervencion: '',
+      mostrarModalSeguimiento: false,
+      reporteSeleccionado: null, // Para guardar el reporte que queremos imprimir
+      filtroNombre: '',
+      cargando: false,
+      ventana: 'inicio', // Controla la pantalla principal
+      subTab: 'reportes', // Controla la pestaña dentro del sistema
+      usuarioActivo: null,
       reportes: [],
-      form: { tipo: 'fisico', descripcion: '', ubicacion: '', anonimo: true },
-      subTab: 'reportes',    // Controla cuál de las dos tablas se muestra en el panel
-      listaUsuarios: [],     // Almacenará los usuarios traídos de la DB
-      isCargandoUsuarios: false, // Opcional: para mostrar un estado de carga
-      // inicio, sistema, login, registro
-        usuarioActivo: null, // Guardará los datos del usuario logueado
-        formAuth: { nombre: '', correo: '', password: '' }
+      listaUsuarios: [],
+      formColegio: { nit: '', nombre: '', password: '', ubicacion: '', rector: '', sector: 'Oficial' },
+      formEstudiante: { nombre: '', correo: '', password: '', grado: '', grupo: '', colegio_id: null },
+      formAuth: { correo: '', password: '' },
+      form: { 
+              tipo: 'Tipo I', // Valor por defecto actualizado
+              descripcion: '', 
+              ubicacion: '', 
+              anonimo: true 
+            }
     }
-
   },
 
   computed: {
-    sinAtender() { 
-      return this.reportes.filter(r => r.estado === 'nuevo').length; 
-    },
-    enRevision() { 
-      return this.reportes.filter(r => r.estado === 'revision').length; 
-    },
-    resueltos() { 
-      return this.reportes.filter(r => r.estado === 'resuelto').length; 
-    },
-    reportePorArea() {
-      const areas = {};
-      this.reportes.forEach(r => {
-        const area = r.ubicacion || 'No especificado';
-        areas[area] = (areas[area] || 0) + 1;
-      });
-      return areas;
-    },
-    maxReportes() {
-      const valores = Object.values(this.reportePorArea);
-      return valores.length > 0 ? Math.max(...valores) : 1;
-    }
+    sinAtender() { return this.reportes.filter(r => r.estado === 'nuevo').length; },
+    enRevision() { return this.reportes.filter(r => r.estado === 'revision').length; },
+    resueltos() { return this.reportes.filter(r => r.estado === 'resuelto').length; },
+    usuariosFiltrados() {
+  // Si no hay nada escrito, muestra la lista completa
+  if (!this.filtroNombre) {
+    return this.listaUsuarios;
+  }
+  // Si hay algo escrito, filtra por nombre o correo
+  const buscar = this.filtroNombre.toLowerCase();
+  return this.listaUsuarios.filter(u => 
+    u.nombre.toLowerCase().includes(buscar) || 
+    u.correo.toLowerCase().includes(buscar)
+  );
+}
   },
 
   mounted() {
-  this.obtenerReportes();
-  
-  // LEER DEL NAVEGADOR:
-  const usuarioGuardado = localStorage.getItem('usuarioProyecto');
-  if (usuarioGuardado) {
-    // Si existe, lo convertimos de vuelta a objeto y lo activamos
-    this.usuarioActivo = JSON.parse(usuarioGuardado);
-    this.ventana = 'sistema'; // Lo mandamos directo al sistema si ya estaba logueado
-  }
-},
+    // PERSISTENCIA: Revisar si ya había una sesión
+    const guardado = localStorage.getItem('usuarioProyecto');
+    if (guardado) {
+      this.usuarioActivo = JSON.parse(guardado);
+      this.ventana = 'sistema';
+      this.obtenerReportes();
+    }
+  },
 
   methods: {
-  // --- AUTENTICACIÓN ---
-  async registrarUsuario() {
+
+    
+    
+  // 1. Abre el modal y prepara los datos
+  abrirSeguimiento(reporte) {
+    this.reporteSeleccionado = reporte;
+    this.nuevaIntervencion = ''; // Limpiamos el campo de texto
+    this.mostrarModalSeguimiento = true;
+  },
+
+  // 2. Guarda en la base de datos y luego dispara el PDF
+  async guardarYGenerarActa() {
+    if (!this.nuevaIntervencion) return alert("Por favor escribe la intervención o solución.");
+
     try {
-      // Importante: tu backend espera /api/registro
-      const res = await api.post('/registro', this.formAuth);
+      this.cargando = true;
       
-      if (res.data.success) {
-        alert("¡Cuenta creada con éxito! Ahora puedes iniciar sesión.");
-        this.ventana = 'login'; 
-        this.formAuth = { nombre: '', correo: '', password: '' };
+      // Construimos el nuevo seguimiento (lo anterior + lo nuevo con fecha)
+      const fechaCierre = new Date().toLocaleString();
+      const seguimientoActualizado = (this.reporteSeleccionado.seguimiento || '') + 
+                                      `\n[${fechaCierre}]: ${this.nuevaIntervencion}\n`;
+
+      // Enviamos al backend para actualizar el reporte
+      await api.put(`/reportes/${this.reporteSeleccionado.id}`, { 
+        estado: 'resuelto', 
+        seguimiento: seguimientoActualizado 
+      });
+
+      // Actualizamos localmente para que el PDF salga con la info nueva
+      this.reporteSeleccionado.seguimiento = seguimientoActualizado;
+      this.reporteSeleccionado.estado = 'resuelto';
+
+      this.mostrarModalSeguimiento = false;
+      
+      // Llamamos a tu función de descarga que ya funciona
+      await this.descargarActa(this.reporteSeleccionado);
+      
+      // Refrescamos la lista general
+      this.obtenerReportes();
+
+    } catch (e) {
+      alert("Error al guardar el seguimiento");
+    } finally {
+      this.cargando = false;
+    }
+  },
+  
+  // Tu función descargarActa se mantiene IGUAL a como la tienes ahora.
+
+
+async descargarActa(reporte) {
+  try {
+    this.cargando = true;
+    this.reporteSeleccionado = reporte;
+
+    // 1. Esperamos a que Vue procese los datos en el HTML oculto
+    await this.$nextTick();
+    
+    // 2. Pausa de seguridad (800ms) para que el DOM se renderice completamente
+    await new Promise(resolve => setTimeout(resolve, 800));
+
+    // 3. Buscamos el elemento con el ID que definiste en el template
+    const elemento = document.getElementById('molde-acta-pdf');
+
+    if (!elemento) {
+      // Este mensaje saldrá si el ID en el HTML y el JS no coinciden
+      throw new Error("No se encontró el elemento 'molde-acta-pdf'");
+    }
+
+    const opciones = {
+      margin: [0.5, 0.5],
+      filename: `Acta_Caso_${reporte.id}.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { 
+        scale: 2, 
+        useCORS: true,
+        logging: false,
+        backgroundColor: '#ffffff',
+        windowWidth: 800 
+      },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+
+    // 4. Generar y guardar
+    await html2pdf().set(opciones).from(elemento).save();
+
+  } catch (error) {
+    console.error("Error al generar PDF:", error);
+    alert("Hubo un detalle al encontrar el molde del acta. Intenta de nuevo.");
+  } finally {
+    this.cargando = false;
+  }
+},
+
+
+async procesarExcel(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  this.cargando = true; // Activamos el loader azul
+
+  reader.onload = async (e) => {
+    try {
+      const data = new Uint8Array(e.target.result);
+      const workbook = XLSX.read(data, { type: 'array' });
+      const firstSheetName = workbook.SheetNames[0];
+      const worksheet = workbook.Sheets[firstSheetName];
+      
+      const listaEstudiantes = XLSX.utils.sheet_to_json(worksheet);
+
+      if (listaEstudiantes.length === 0) {
+        alert("El archivo está vacío");
+        this.cargando = false;
+        return;
       }
+
+      // Enviamos al backend
+      const res = await api.post('/estudiantes/carga-masiva', {
+        estudiantes: listaEstudiantes,
+        colegio_id: this.usuarioActivo.colegio_id
+      });
+
+      // --- AQUÍ ESTÁ LA APLICACIÓN DEL PUNTO 2 ---
+      if (res.data.success) {
+        let mensajeExito = res.data.message;
+
+        // Si el backend nos avisa que hubo correos que fallaron:
+        if (res.data.errores && res.data.errores.length > 0) {
+          mensajeExito += `\n\n⚠️ No se pudieron cargar ${res.data.errores.length} registros porque ya existen:\n`;
+          mensajeExito += res.data.errores.join("\n");
+        }
+
+        alert(mensajeExito);
+        
+        // Refrescamos la lista de usuarios para ver los nuevos
+        this.cargarUsuarios();
+      }
+      // -------------------------------------------
+
     } catch (error) {
       console.error(error);
-      alert("Error al registrar: " + (error.response?.data?.message || "Servidor no disponible"));
+      // Si el error es un 400 (todos fallaron), mostramos el detalle del error
+      const mensajeError = error.response?.data?.message || "Hubo un error al procesar el archivo";
+      const detalles = error.response?.data?.detalles ? `\n${error.response.data.detalles.join("\n")}` : "";
+      alert(mensajeError + detalles);
+    } finally {
+      this.cargando = false;
+      event.target.value = ''; // Limpiamos el selector de archivos
     }
-  },
+  };
 
-  async iniciarSesion() {
+  reader.readAsArrayBuffer(file);
+},
+
+
+descargarPlantilla() {
+  const data = [
+    { nombre: "Juan Perez", correo: "juan@colegio.edu.co", grado: "11", grupo: "A" },
+    { nombre: "Ana Lopez", correo: "ana@colegio.edu.co", grado: "10", grupo: "B" }
+  ];
+  const worksheet = XLSX.utils.json_to_sheet(data);
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, "Estudiantes");
+  XLSX.writeFile(workbook, "Plantilla_Carga_CERO.xlsx");
+},
+    
+
+    // --- LÓGICA DE REGISTRO ---
+    
+async registrarColegio() { // Nombre unificado con el HTML
+  this.cargando = true;
   try {
-    const datosLogin = {
-      correo: this.formAuth.correo.trim(),
-      password: this.formAuth.password
-    };
-    const res = await api.post('/login', datosLogin);
+    // Verificamos que los campos no estén vacíos
+    if(!this.formColegio.nombre || !this.formColegio.rector || !this.formColegio.nit) {
+       alert("Por favor completa los campos principales");
+       return;
+    }
+
+    const res = await api.post('/colegios/registro', this.formColegio);
+    
+    if (res.data.success) {
+      alert("¡Institución registrada! El Rector ya puede ingresar con su NIT y contraseña.");
+      this.ventana = 'login'; 
+      // Limpiamos el formulario para futuros registros
+      this.formColegio = { nit: '', nombre: '', password: '', ubicacion: '', rector: '', sector: 'Oficial' };
+    }
+  } catch (e) {
+    console.error("Error detallado:", e);
+    alert("Error al registrar el colegio: " + (e.response?.data?.message || "Servidor no disponible"));
+  } finally {
+    this.cargando = false;
+  }
+},
+
+    async registrarEstudiante() {
+    //  this.cargando = true;
+      try {
+        const res = await api.post('/estudiantes/registro', this.formEstudiante);
+        if (res.data.success) {
+          alert("Registro completo. Por favor inicia sesión.");
+          this.ventana = 'login';
+        }
+      } catch (e) {
+        alert("Error: " + (e.response?.data?.message || "Revisa los campos"));
+      }
+    },
+
+    // --- AUTENTICACIÓN ---
+    async iniciarSesion() {
+  try {
+    this.cargando = true;
+    const res = await api.post('/login', this.formAuth);
 
     if (res.data.success) {
-      this.usuarioActivo = res.data.user;
-      
-      // GUARDAR EN NAVEGADOR: Convertimos el objeto a texto para guardarlo
-      localStorage.setItem('usuarioProyecto', JSON.stringify(res.data.user));
-      
+      const user = res.data.user;
+
+      // 1. Verificamos si es un estudiante con cambio de clave pendiente
+      if (user.mustChangePassword) {
+        this.usuarioActivo = user; // Guardamos temporalmente sus datos
+        this.ventana = 'cambiarPassword'; // <--- ESTO ES LO QUE TE FALTA
+        return; // Detenemos aquí para que no entre al sistema todavía
+      }
+
+      // 2. Si no debe cambiar clave, entra normal
+      this.usuarioActivo = user;
+      localStorage.setItem('usuarioProyecto', JSON.stringify(user));
       this.ventana = 'sistema';
-      this.formAuth = { nombre: '', correo: '', password: '' };
-      alert("¡Bienvenido/a " + this.usuarioActivo.nombre + "!");
+      this.obtenerReportes();
     }
   } catch (error) {
-    alert("Correo o contraseña incorrectos");
+    alert(error.response?.data?.message || "Error al ingresar");
+  } finally {
+    this.cargando = false;
   }
 },
 
-  // --- REPORTES ---
-  async enviarReporte() {
-  if (!this.form.descripcion || !this.form.ubicacion) {
-    return alert("Por favor completa los campos");
+
+async actualizarPasswordObligatorio() {
+  if (this.nuevaClave !== this.confirmarClave) {
+    return alert("Las contraseñas no coinciden.");
   }
+  
   try {
-    // IMPORTANTE: Creamos un nuevo objeto que incluya el usuario_id
-    const reporteCompleto = {
-      tipo: this.form.tipo,
-      descripcion: this.form.descripcion,
-      ubicacion: this.form.ubicacion,
-      anonimo: this.form.anonimo,
-      // Si usuarioActivo existe, mandamos su id, si no, mandamos null
-      usuario_id: this.usuarioActivo ? this.usuarioActivo.id : null 
+    this.cargando = true;
+    const res = await api.put(`/usuarios/password/${this.usuarioActivo.id}`, {
+      nuevaPassword: this.nuevaClave
+    });
+
+    if (res.data.success) {
+      alert("Contraseña actualizada correctamente.");
+      
+      // --- LIMPIEZA DEL FORMULARIO DE CAMBIO (Punto 1) ---
+      this.nuevaClave = '';      
+      this.confirmarClave = '';  
+      
+      // --- LIMPIEZA DEL FORMULARIO DE LOGIN (Punto 2) ---
+      // Esto limpia el "Correo o NIT" y la "Contraseña" de la pantalla inicial
+      this.formAuth.correo = '';
+      this.formAuth.password = '';
+      
+      // Guardar sesión y entrar
+      this.usuarioActivo.mustChangePassword = false;
+      localStorage.setItem('usuarioProyecto', JSON.stringify(this.usuarioActivo));
+      this.ventana = 'sistema';
+      this.obtenerReportes();
+    }
+  } catch (error) {
+    console.error(error);
+    alert("Error al actualizar la contraseña.");
+  } finally {
+    this.cargando = false;
+  }
+},
+
+    cerrarSesion() {
+  // 1. Limpiamos la persistencia
+  localStorage.removeItem('usuarioProyecto');
+  this.usuarioActivo = null;
+
+  // 2. LIMPIEZA DE CAMPOS DE LOGIN (Lo que pediste)
+  this.formAuth.correo = '';
+  this.formAuth.password = '';
+
+  // 3. LIMPIEZA DE CAMPOS DE CAMBIO DE CLAVE (Por seguridad)
+  this.nuevaClave = '';
+  this.confirmarClave = '';
+
+  // 4. Regresamos a la pantalla de inicio
+  this.ventana = 'inicio';
+},
+
+    // --- GESTIÓN DE REPORTES ---
+    
+    async obtenerReportes() {
+  if (!this.usuarioActivo?.colegio_id) return;
+  try {
+    const res = await api.get(`/estadisticas/${this.usuarioActivo.colegio_id}`, {
+      params: {
+        usuario_id: this.usuarioActivo.id,
+        rol: this.usuarioActivo.rol
+      }
+    });
+    this.reportes = res.data;
+  } catch (e) { 
+    console.error("Error al obtener reportes:", e); 
+  }
+},
+
+
+    async enviarReporte() {
+  if (!this.form.descripcion) return alert("Escribe una descripción");
+  
+  try {
+    // Agregamos explícitamente los IDs necesarios
+    const datosReporte = { 
+      ...this.form, 
+      usuario_id: this.usuarioActivo.id,
+      colegio_id: this.usuarioActivo.colegio_id // <--- IMPORTANTE
     };
 
-    await api.post('/reportes', reporteCompleto); 
-    alert("Reporte Enviado ✅");
+    await api.post('/reportes', datosReporte);
     
+    alert("Reporte enviado con éxito ✅");
     this.form.descripcion = '';
-    this.form.ubicacion = '';
-    this.obtenerReportes();
-  } catch (e) {
-    console.error("Error al enviar:", e);
-    alert("Error al enviar el reporte");
+    this.subTab = 'reportes';
+    this.obtenerReportes(); // Refresca la lista
+  } catch (e) { 
+    console.error("Error detallado:", e.response?.data);
+    alert("Error al enviar: " + (e.response?.data?.message || "Intenta de nuevo")); 
   }
 },
 
-  async obtenerReportes() {
-    try {
-      // Tu backend usa /api/estadisticas para traer los datos
-      const res = await api.get('/estadisticas');
-      this.reportes = res.data;
-    } catch (e) {
-      console.error("Error al obtener reportes:", e);
-    }
-  },
-
-  cerrarSesion() {
-  // Limpiamos la variable y el almacenamiento del navegador
-  this.usuarioActivo = null;
-  localStorage.removeItem('usuarioProyecto');
-  this.ventana = 'inicio';
-  alert("Sesión cerrada correctamente");
-},
-
-  // --- OTROS MÉTODOS ---
-  verificarAcceso() {
-    if (String(this.passwordIngresada) === '1234') {
-      this.estaLogueado = true;
-      this.passwordIngresada = ''; 
-      this.obtenerReportes();
-    } else {
-      alert("Pin Incorrecto");
-    }
-  },
-
-  descargarExcel() {
-    if (this.reportes.length === 0) return alert("No hay datos");
-    const data = this.reportes.map(r => ({
-      ID: r.id, Tipo: r.tipo, Desc: r.descripcion, Ubic: r.ubicacion, Estado: r.estado
-    }));
-    const worksheet = XLSX.utils.json_to_sheet(data);
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Reportes");
-    XLSX.writeFile(workbook, "Reportes_Proyecto_CERO.xlsx");
-  },
-
-  // Dentro de methods: { ... }
-async cargarUsuarios() {
-    const res = await api.get('/usuarios');
-    this.listaUsuarios = res.data;
-},
-async hacerAdmin(idUsuario) {
-    if (confirm("¿Seguro que quieres dar permisos de administrador?")) {
-        await api.put(`/usuarios/rol/${idUsuario}`, { nuevoRol: 'admin' });
-        alert("¡Usuario ahora es Administrador!");
-        this.cargarUsuarios(); // Recargamos la lista
-    }
-},
-
-
-async cargarUsuarios() {
-    try {
-      this.isCargandoUsuarios = true;
-      const response = await api.get('/usuarios'); // Asegúrate que tu backend tenga esta ruta
-      this.listaUsuarios = response.data;
-    } catch (error) {
-      console.error("Error al cargar usuarios:", error);
-      alert("No se pudo obtener la lista de usuarios.");
-    } finally {
-      this.isCargandoUsuarios = false;
-    }
-  },
-
-  // Función para el botón "Ascender a Admin"
-  async hacerAdmin(idUsuario) {
-    const confirmacion = confirm("¿Estás seguro de otorgar permisos de Administrador a este usuario?");
-    
-    if (confirmacion) {
+    async cambiarEstado(id, estadoActual) {
+      let nuevo = estadoActual === 'nuevo' ? 'revision' : 'resuelto';
+      if (estadoActual === 'resuelto') return;
       try {
-        // Enviamos la actualización al servidor
-        await api.put(`/usuarios/rol/${idUsuario}`, { nuevoRol: 'admin' });
-        
-        alert("¡Permisos actualizados con éxito!");
-        
-        // Refrescamos la lista para que el botón desaparezca y salga el check verde
-        await this.cargarUsuarios(); 
-      } catch (error) {
-        console.error("Error al actualizar rol:", error);
-        alert("Hubo un error al intentar cambiar el rango.");
-      }
-    }
-  },
+        await api.put(`/reportes/${id}`, { estado: nuevo });
+        this.obtenerReportes();
+      } catch (e) { alert("No se pudo actualizar"); }
+    },
 
-  async cambiarEstado(id, estadoActual) {
-  let nuevoEstado = 'nuevo';
-  
-  // Lógica de rotación de estados
-  if (estadoActual === 'nuevo') nuevoEstado = 'revision';
-  else if (estadoActual === 'revision') nuevoEstado = 'resuelto';
-  else return alert("Este reporte ya está resuelto.");
-
+    // --- OTROS ---
+    async cargarUsuarios() {
+  if (!this.usuarioActivo?.colegio_id) return;
   try {
-    await api.put(`/reportes/${id}`, { estado: nuevoEstado });
-    alert(`Estado actualizado a: ${nuevoEstado}`);
-    this.obtenerReportes(); // Recargar la tabla de reportes
-  } catch (error) {
-    console.error("Error al cambiar estado:", error);
-    alert("No se pudo actualizar el estado.");
+    const res = await api.get(`/usuarios/${this.usuarioActivo.colegio_id}`);
+    this.listaUsuarios = res.data;
+  } catch (e) {
+    console.error("Error al cargar usuarios:", e);
+    alert("No se pudieron cargar los usuarios");
   }
 },
 
+    async hacerAdmin(id) {
+      if (!confirm("¿Dar permisos de administrador?")) return;
+      try {
+        await api.put(`/usuarios/rol/${id}`, { nuevoRol: 'admin' });
+        this.cargarUsuarios();
+      } catch (e) { alert("Error"); }
+    },
+
+    
+async eliminarUsuario(id, nombre) {
+  const confirmar = confirm(`¿Seguro que deseas eliminar a ${nombre}?`);
+  if (confirmar) {
+    try {
+      this.cargando = true;
+      const res = await api.delete(`/usuarios/${id}`);
+      if (res.data.success) {
+        alert("Usuario eliminado");
+        await this.cargarUsuarios(); // Esto actualiza la tabla
+      }
+    } catch (e) {
+      alert("No se pudo eliminar: " + (e.response?.data?.message || e.message));
+    } finally {
+      this.cargando = false;
+    }
+  }
+},
+
+    descargarExcel() {
+      const worksheet = XLSX.utils.json_to_sheet(this.reportes);
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, "Reportes");
+      XLSX.writeFile(workbook, "Reportes_CERO.xlsx");
+    },
+
+    async obtenerUsuarios() {
+  try {
+    // Usamos el colegio_id del usuario que inició sesión
+    const idColegio = this.usuarioActivo.colegio_id; 
+    const response = await api.get(`/usuarios/${idColegio}`);
+    this.usuarios = response.data;
+  } catch (e) {
+    console.error("No se pudieron cargar los usuarios", e);
+  }
 }
 
-};
 
-
-
+  }
+}
 </script>
 
 <style>
-:root { --primary: #4f46e5; --bg: #f8fafc; }
-body { background: var(--bg); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; }
-
-/* NAVBAR */
-.navbar { display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-.main-nav button { background: none; border: none; padding: 10px 20px; font-weight: bold; cursor: pointer; color: #64748b; border-bottom: 2px solid transparent; }
-.main-nav button.active { color: var(--primary); border-bottom-color: var(--primary); }
-
-/* SUB-NAV */
-.sub-nav { display: flex; justify-content: center; gap: 15px; margin-bottom: 2rem; padding-top: 1rem; }
-.sub-nav button { background: white; border: 1px solid #ddd; padding: 8px 25px; border-radius: 25px; cursor: pointer; transition: 0.3s; }
-.sub-nav button.active { background: var(--primary); color: white; border-color: var(--primary); }
-
-.content { padding: 2rem 5%; }
-
-/* TARJETAS DE INFORMACIÓN */
-.info-card { background: white; padding: 3rem; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; max-width: 900px; margin: auto; }
-.info-grid, .contact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 2rem; }
-.info-item, .contact-item { background: #f1f5f9; padding: 20px; border-radius: 12px; }
-.emergency-alert { margin-top: 2rem; padding: 15px; background: #fee2e2; color: #b91c1c; border-radius: 10px; font-weight: bold; }
-
-/* ESTILOS DE DASHBOARD Y FORMULARIO (Resumidos) */
-.report-card { background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); max-width: 600px; margin: auto; }
-.input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
-.field { display: flex; flex-direction: column; gap: 5px; margin-bottom: 15px; text-align: left; }
-.field input, .field select, .field textarea { padding: 12px; border: 1px solid #ddd; border-radius: 8px; }
-.btn-submit { background: var(--primary); color: white; border: none; padding: 14px; width: 100%; border-radius: 8px; cursor: pointer; font-weight: bold; }
-
-.stats-cards-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 20px; }
-.stat-card { background: white; padding: 20px; border-radius: 12px; text-align: center; border-left: 5px solid var(--primary); }
-.stat-card.pending { border-left-color: #f59e0b; }
-.stat-card.processing { border-left-color: #3b82f6; }
-.stat-card.resolved { border-left-color: #10b981; }
-
-.login-container { display: flex; justify-content: center; padding-top: 50px; }
-.login-card { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); width: 100%; max-width: 350px; text-align: center; }
-.login-card input { width: 100%; padding: 12px; margin: 15px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
-
-.chart-container { background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; }
-.bar-item { display: grid; grid-template-columns: 120px 1fr; align-items: center; margin-bottom: 10px; gap: 15px; }
-.bar-wrapper { background: #f1f5f9; border-radius: 10px; height: 20px; overflow: hidden; }
-.bar-fill { background: var(--primary); height: 100%; transition: width 0.5s; display: flex; justify-content: flex-end; align-items: center; padding-right: 10px; }
-.bar-value { color: white; font-size: 0.8rem; font-weight: bold; }
-
-.table-container { background: white; border-radius: 15px; overflow: hidden; }
-.modern-table { width: 100%; border-collapse: collapse; }
-.modern-table th, .modern-table td { padding: 15px; border-bottom: 1px solid #eee; text-align: left; }
-.status-pill { padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: bold; }
-.status-pill.nuevo { background: #fef3c7; color: #d97706; }
-.status-pill.en_revision { background: #dbeafe; color: #2563eb; }
-.status-pill.resuelto { background: #dcfce7; color: #16a34a; }
-
-.admin-header { display: flex; justify-content: flex-end; gap: 10px; margin-bottom: 15px; }
-.btn-excel { background: #16a34a; color: white; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; }
-.btn-logout { background: #ef4444; color: white; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; }
-
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&display=swap');
+#app { font-family: 'Plus Jakarta Sans', sans-serif; }
 .animate-fade-in { animation: fadeIn 0.5s ease-out; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.animate-slide-up { animation: slideUp 0.5s ease-out; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-.logo-img {
-  width: 45px;
-  height: 45px;
-  border-radius: 50%; /* Esto lo hace circular */
-  object-fit: cover;
-  margin-right: 12px;
-  border: 2px solid var(--primary);
-}
-
-.bar-fill {
-  height: 100%;
-  background-color: #3498db;
-  transition: width 0.5s ease-in-out; /* Esto hace que la barra crezca suavemente */
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding-right: 10px;
-  color: white;
-}
-
-
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 5%;
-  background-color: white;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.main-nav {
-  display: flex;
-  align-items: center;
-  gap: 30px; /* Espacio entre links y botón de login */
-}
-
-.btn-login-top {
-  background-color: #fdf2b3; /* El amarillo de la foto ConviVe */
-  border-radius: 50px;
-  padding: 10px 25px;
-  font-weight: bold;
-  border: none;
-  cursor: pointer;
-}
 
 </style>
