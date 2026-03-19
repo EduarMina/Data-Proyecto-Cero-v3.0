@@ -575,6 +575,58 @@
     </div>
 
   </div>
+
+  <button 
+  @click="mostrarChatbot = !mostrarChatbot" 
+  type="button"
+  class="fixed bottom-24 right-8 bg-blue-900 text-white p-4 rounded-full shadow-2xl z-[100] hover:scale-110 active:scale-95 transition-all cursor-pointer"
+>
+  <svg v-if="!mostrarChatbot" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+  </svg>
+  <svg v-else xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+  </svg>
+</button>
+
+<div v-show="mostrarChatbot" class="fixed bottom-40 right-8 w-80 bg-white shadow-2xl rounded-3xl overflow-hidden z-50 border border-gray-100 flex flex-col animate-fade-in">
+  <div class="bg-blue-900 p-4 text-white">
+    <h3 class="font-black text-sm uppercase tracking-tighter">Asistente C.E.R.O</h3>
+    <p class="text-[10px] text-blue-300">En línea para ayudarte</p>
+  </div>
+
+  <div 
+  ref="chatContainer" 
+  class="h-64 overflow-y-auto p-4 space-y-3 bg-gray-50 text-xs"
+  >
+  <div v-for="(msg, idx) in historialChat" :key="idx" 
+    :class="['p-3 rounded-2xl max-w-[80%] shadow-sm', msg.emisor === 'bot' ? 'bg-white text-gray-700 rounded-bl-none' : 'bg-blue-600 text-white ml-auto rounded-br-none']">
+    {{ msg.texto }}
+  </div>
+</div>
+
+  
+  <div class="p-3 border-t bg-white flex gap-2">
+  <input 
+    v-model="mensajeChat" 
+    @keyup.enter="enviarDuda"
+    type="text" 
+    placeholder="Escribe tu duda..." 
+    class="flex-1 text-xs p-2 bg-gray-100 rounded-xl outline-none focus:ring-2 focus:ring-blue-600"
+  >
+  <button 
+    @click="enviarDuda" 
+    type="button"
+    class="bg-blue-600 text-white p-2 rounded-xl hover:bg-blue-700 transition-colors cursor-pointer"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+      <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
+    </svg>
+  </button>
+</div>
+
+</div>
+
 </template>
 
 
@@ -588,6 +640,19 @@ import 'aos/dist/aos.css';
 export default {
   data() {
     return {
+
+    mostrarChatbot: false,
+    mensajeChat: '',
+    historialChat: [
+      { emisor: 'bot', texto: '¡Hola! Soy el asistente de C.E.R.O. ¿En qué puedo ayudarte hoy?' }
+    ],
+    // Base de conocimiento para respuestas rápidas
+    respuestasBot: {
+      "ley 1620": "La Ley 1620 de 2013 crea el Sistema Nacional de Convivencia Escolar para prevenir el bullying y promover los derechos humanos.",
+      "reportar": "Para reportar un caso, ve a la sección 'Reportar' en tu panel, describe lo sucedido y selecciona la ubicación.",
+      "anonimo": "Sí, todos los reportes pueden ser anónimos para proteger tu identidad y seguridad.",
+      "password": "Si olvidaste tu contraseña, debes contactar al administrador o rector de tu institución para un reinicio."
+    },
 
       mostrarBotonArriba: false,
       // Datos del Carrusel
@@ -682,32 +747,89 @@ export default {
   mounted() {
 
    this.controlarScrollRef = this.controlarScroll.bind(this);
-    window.addEventListener('scroll', this.controlarScroll);
+    window.addEventListener('scroll', this.controlarScrollRef);
 
-    
-              const guardado = localStorage.getItem('usuarioProyecto');
-              if (guardado) {
-                this.usuarioActivo = JSON.parse(guardado);
-                this.ventana = 'sistema';
-                this.obtenerReportes();
-              } else {
-                // Solo intentamos renderizar la gráfica si estamos en el inicio
-                this.$nextTick(() => {
-                  this.renderizarGrafica();
-                });
-              }
+    const guardado = localStorage.getItem('usuarioProyecto');
+    if (guardado) {
+      this.usuarioActivo = JSON.parse(guardado);
+      this.ventana = 'sistema';
+      this.obtenerReportes();
+    } else {
+      this.$nextTick(() => {
+        this.renderizarGrafica();
+      });
+    }
 
-              // Iniciar el carrusel automático
-              setInterval(() => {
-                this.indiceCarrusel = (this.indiceCarrusel + 1) % this.imagenesCarrusel.length;
-              }, 5000);
-            }, 
+    setInterval(() => {
+      this.indiceCarrusel = (this.indiceCarrusel + 1) % this.imagenesCarrusel.length;
+    }, 5000);
+  },
 
-             beforeUnmount() {
-    window.removeEventListener('scroll', this.controlarScroll);
+  beforeUnmount() {
+    window.removeEventListener('scroll', this.controlarScrollRef);
   },
 
   methods: {
+
+    
+            enviarDuda() {
+  // 1. Validar que el mensaje no esté vacío
+  if (!this.mensajeChat || !this.mensajeChat.trim()) return;
+
+  // 2. Agregar mensaje del usuario al historial
+  this.historialChat.push({ 
+    emisor: 'usuario', 
+    texto: this.mensajeChat 
+  });
+  
+  const consulta = this.mensajeChat.toLowerCase();
+  let respuesta = "Lo siento, no entiendo esa pregunta. Prueba con: 'Ley 1620', 'reportar' o 'anonimato'.";
+
+  // 3. Lógica de respuestas (Asegúrate que respuestasBot esté en data)
+  const baseConocimiento = {
+    "ley 1620": "La Ley 1620 de 2013 fortalece la convivencia escolar y previene la violencia en las instituciones.",
+    "reportar": "Haz clic en el botón 'Reportar' de tu panel, llena los datos y dale a enviar.",
+    "anonimo": "¡Claro! Los reportes pueden ser anónimos para garantizar tu tranquilidad.",
+    "hola": "¡Hola! Soy el asistente de C.E.R.O. ¿En qué puedo ayudarte?"
+  };
+
+  // Buscar coincidencia
+  for (let clave in baseConocimiento) {
+    if (consulta.includes(clave)) {
+      respuesta = baseConocimiento[clave];
+      break;
+    }
+  }
+
+  // 4. Limpiar el input inmediatamente
+  const mensajeGuardado = this.mensajeChat; // Opcional por si quieres usarlo luego
+  this.mensajeChat = '';
+
+  // 5. Respuesta del Bot con pequeño retraso (UX)
+  setTimeout(() => {
+    this.historialChat.push({ 
+      emisor: 'bot', 
+      texto: respuesta 
+    });
+    
+    // Scroll al fondo automático
+    this.$nextTick(() => {
+      const container = this.$refs.chatContainer;
+      if (container) {
+        container.scrollTop = container.scrollHeight;
+      }
+    });
+  }, 500);
+},
+  toggleChat() {
+    this.mostrarChatbot = !this.mostrarChatbot;
+  },
+
+
+            beforeUnmount() {
+    window.removeEventListener('scroll', this.controlarScroll);
+  },
+
 
     controlarScroll() {
     // Usamos window.pageYOffset como alternativa más compatible
